@@ -1,5 +1,6 @@
 package org.ngarcia.appfacturas.modelo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Factura {
@@ -73,13 +74,29 @@ public class Factura {
     }
     
     public String generarDetalle() {
+        
+        SimpleDateFormat df = new SimpleDateFormat("dd 'de' MMMM 'de' yyyy");
+        
         StringBuilder sb = new StringBuilder();
-        sb.append("Factura nº").append(folio)
-                .append("\nCliente: ").append(this.cliente.getNombre())
-                .append("\tRUT:").append(this.cliente.getRUT())
-                .append("\nDescripción:").append(this.descripcion)
-                .append("\nFecha:").append(this.fecha.toString())
-                .append("\n\n#\tNombre\t$\tCant.\tTotal\n");
+        sb.append("Factura nº:\t").append(folio)
+                .append("\nCliente:\t").append(this.cliente.getNombre())
+                .append("\tRUT:\t").append(this.cliente.getRUT())
+                .append("\nDescripción:\t").append(this.descripcion)
+                .append("\nFecha:\t").append(df.format(this.fecha))
+                .append("\n\n#\tNombre\t\t$\tCant.\tTotal\n");
+        
+        for(ItemFactura item: this.items) {
+            if(item == null) {
+                continue;
+            }
+            sb.append(item.getProducto().getCodigo())
+                    .append("\t").append(item.getProducto().getNombre())
+                    .append("\t").append(item.getProducto().getPrecio())
+                    .append("\t").append(item.getCantidad())
+                    .append("\t").append(item.calcularImporte())
+                    .append("\n");
+        }
+        sb.append("\nTotal:\t").append(this.calcularTotal());
         
         return sb.toString();
     }
