@@ -83,7 +83,7 @@ public class Factura {
                 .append("\tRUT:\t").append(this.cliente.getRUT())
                 .append("\nDescripción:\t").append(this.descripcion)
                 .append("\nFecha:\t").append(df.format(this.fecha))
-                .append("\n\n#\tNombre\t\t$\tCant.\tTotal\n");
+                .append("\n\n#\tNombre\t\t$\t\tCant.\t\tTotal\n");
         
         for(ItemFactura item: this.items) {
             if(item == null) {
@@ -91,9 +91,9 @@ public class Factura {
             }
             sb.append(item.getProducto().getCodigo())
                     .append("\t").append(item.getProducto().getNombre())
-                    .append("\t").append(item.getProducto().getPrecio())
-                    .append("\t").append(item.getCantidad())
-                    .append("\t").append(item.calcularImporte())
+                    .append("\t\t").append(item.getProducto().getPrecio())
+                    .append("\t\t").append(item.getCantidad())
+                    .append("\t\t").append(item.calcularImporte())
                     .append("\n");
         }
         sb.append("\nTotal:\t").append(this.calcularTotal());
