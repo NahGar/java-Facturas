@@ -13,35 +13,40 @@ public class Ejecutar {
         cliente.setRUT("221549521896");
 
         Scanner s = new Scanner(System.in);
-        System.out.println("Ingrese descripción de la factura");
+        System.out.print("Ingrese descripción de la factura: ");
         String descripcion = s.nextLine();
 
         Factura factura = new Factura(descripcion, cliente);
 
-        Producto producto = new Producto();
-        String nombre;
-        float precio;
-        int cantidad;
+        Producto producto;
+        //String nombre;
+        //float precio;
+        //int cantidad;
 
         System.out.println();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 2; i++) {
             producto = new Producto();
-            System.out.print("Ingrese código de producto: ");
-            nombre = s.next(); //permite solo una palabra
-            producto.setNombre(nombre);
+            System.out.print("Ingrese producto n° " + producto.getCodigo() + ": ");
+            //nombre = s.next(); //next permite solo una palabra
+            //nombre = s.nextLine();
+            producto.setNombre(s.nextLine());
 
             System.out.print("Ingrese precio: ");
-            precio = s.nextFloat();
-            producto.setPrecio(precio);
+            //precio = s.nextFloat();
+            producto.setPrecio(s.nextFloat());
 
             System.out.print("Ingrese cantidad: ");
-            cantidad = s.nextInt();
+            //cantidad = s.nextInt();
 
-            ItemFactura item = new ItemFactura(producto, cantidad);
+            //ItemFactura item = new ItemFactura(producto, s.nextInt());
 
-            factura.addItem(item);
+            factura.addItem(new ItemFactura(producto, s.nextInt()));
 
             System.out.println();
+
+            //si se carga nombre con espacios, a la siguiente iteración pide más campos
+            //se evita con esto
+            s.nextLine();
         }
 
         System.out.println(factura.generarDetalle());
