@@ -98,4 +98,10 @@ public class Factura {
         return sb.toString();
     }
 
+    @Override
+    public String toString() {
+        return generarDetalle();
+    }
+
+    
 }

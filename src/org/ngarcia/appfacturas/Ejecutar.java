@@ -49,7 +49,7 @@ public class Ejecutar {
             s.nextLine();
         }
 
-        System.out.println(factura.generarDetalle());
+        System.out.println(factura);
     }
     
 }
